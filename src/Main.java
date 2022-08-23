@@ -26,8 +26,6 @@ public class Main extends JFrame {
         frame.setSize(500, 350);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        System.out.println((((24 - 32) *5)/9));
         jlabel = new JLabel("Celsius Fahrenheit Calculator");
         jlabel.setBounds(100, 1, 200, 100);
 
@@ -57,18 +55,27 @@ public class Main extends JFrame {
                 String celsString = celsius.getText();
                 String fahrString = fahrenheit.getText();
 
-                if(celsString.equals("")){
-                    float fahrValue = Float.parseFloat(fahrString);
-                    float fahrConvertedValue = calculatorFahrenheit(fahrValue);
-                    String fahrStringValue = String.valueOf(fahrConvertedValue);
-                    celsius.setText(fahrStringValue);
-                }
+                try {
+                    if(celsString.equals("")){
+                        float fahrValue = Float.parseFloat(fahrString);
+                        float fahrConvertedValue = calculatorFahrenheit(fahrValue);
+                        String fahrStringValue = String.format("%.2f", fahrConvertedValue);
+                        celsius.setText(fahrStringValue);
+                    }
 
-                else if(fahrString.equals("")) {
-                    float celsValue = Float.parseFloat(celsString);
-                    float celsConvertedValue = calculatorCelsius(celsValue);
-                    String celsStringValue = String.valueOf(celsConvertedValue);
-                    fahrenheit.setText(celsStringValue);
+                    else if(fahrString.equals("")) {
+                        float celsValue = Float.parseFloat(celsString);
+                        float celsConvertedValue = calculatorCelsius(celsValue);
+                        String celsStringValue = String.format("%.2f", celsConvertedValue);
+                        fahrenheit.setText(celsStringValue);
+                    }
+                    else {
+                        String st = "Please make sure you only fill one box before calculating";
+                        JOptionPane.showMessageDialog(null, st);
+                    }
+                } catch(NumberFormatException f){
+                    String st = "Enter a number. Not a string dumbass.";
+                    JOptionPane.showMessageDialog(null, st);
                 }
             }
         });
